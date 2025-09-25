@@ -1,11 +1,12 @@
 {
-  "name": "todo_time",
-  "version": "0.0.0",
+  "name": "pomodoro-timer",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
   },
+  "main": "electron/main.ts",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
@@ -13,7 +14,12 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "electron:dev": "electron-vite dev",
+    "electron:build": "electron-vite build",
+    "electron:preview": "electron-vite preview",
+    "app:dev": "concurrently \"npm run dev\" \"npm run electron:dev\"",
+    "app:build": "npm run build && npm run electron:build && electron-builder"
   },
   "dependencies": {
     "pinia": "^3.0.3",
@@ -21,12 +27,18 @@
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
+    "@electron-toolkit/preload": "^3.0.0",
+    "@electron-toolkit/utils": "^2.0.0",
     "@tsconfig/node22": "^22.0.2",
     "@types/node": "^22.16.5",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.6.0",
     "@vue/tsconfig": "^0.7.0",
+    "concurrently": "^9.0.0",
+    "electron": "^22.0.0",
+    "electron-builder": "^25.0.0",
+    "electron-vite": "^2.3.0",
     "eslint": "^9.31.0",
     "eslint-plugin-vue": "~10.3.0",
     "jiti": "^2.4.2",
